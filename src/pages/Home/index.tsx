@@ -1,6 +1,12 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View } from 'react-native';
 
-const Home: React.FC = () => <Text>Home page</Text>;
+import Input from '../../components/Input';
+
+const Home: React.FC = () => (
+  <View>
+    <Input />
+  </View>
+);
 
 export default Home;
