@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import theme from '../../utils/theme';
 
 export const Container = styled.View`
-  margin: 10px;
   background-color: ${theme.font};
   border-radius: 4px;
   flex-direction: row;
