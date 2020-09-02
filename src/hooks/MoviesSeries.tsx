@@ -24,7 +24,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<MoviesProps[]>([]);
 
   async function search(movie: String) {
-    const response = await api.get<ResponseProps[]>(`&s=${movie}`);
+    const response = await api.get<ResponseProps>(`&s=${movie}`);
     setData(response.data.Search);
   }
 
