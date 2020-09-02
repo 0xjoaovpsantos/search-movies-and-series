@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 import api from '../services/api';
+import { API_KEY } from '../../config.json';
 
-interface MoviesProps {
+export interface MoviesProps {
   Title: string;
   Year: string;
   imdbID: string;
@@ -24,8 +25,14 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<MoviesProps[]>([]);
 
   async function search(movie: String) {
-    const response = await api.get<ResponseProps>(`&s=${movie}`);
-    setData(response.data.Search);
+    try {
+      const response = await api.get<ResponseProps>(
+        `/?apikey=${API_KEY}&s=${movie}`,
+      );
+      setData(response.data.Search);
+    } catch (error) {
+      throw new Error(error.response.data);
+    }
   }
 
   return (

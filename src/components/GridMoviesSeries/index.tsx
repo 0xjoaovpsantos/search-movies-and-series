@@ -1,85 +1,33 @@
 import React from 'react';
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  View,
-  StyleSheet,
-  Text,
-} from 'react-native';
-import { Container } from './styles';
+import { Dimensions, FlatList, Image, View, StyleSheet } from 'react-native';
+import { Container, WrapperDescription, Name, Year } from './styles';
+
+import { MoviesProps } from '../../hooks/MoviesSeries';
+
+import theme from '../../utils/theme';
 
 const { width } = Dimensions.get('window');
 const numberGrid = 2;
 const itemWidth = (width - 32) / numberGrid;
 
-const movies = [
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-  {
-    name: 'The batman',
-    url:
-      'https://i2.wp.com/assets.propmark.com.br/legacy/upload/2018/04/5ad8b07fa64f8-5addc73f1401c-980x480.jpg?resize=720%2C353&ssl=1',
-  },
-];
+interface GridMoviesSeriesProps {
+  data: MoviesProps[];
+}
 
-const GridMoviesSeries: React.FC = () => (
+const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => (
   <Container>
     <FlatList
-      data={movies}
+      data={data}
       numColumns={numberGrid}
       key={numberGrid}
-      keyExtractor={(movie) => movie.name}
+      keyExtractor={(movie) => movie.imdbID}
       renderItem={({ item: movie }) => (
         <View style={styles.wrapper}>
-          <Image source={{ uri: movie.url }} style={styles.img} />
-          <Text>
-            Nome do filme aquiNome do filme aquiNome do filme aquiNome do filme
-            aqui
-          </Text>
+          <Image source={{ uri: movie.Poster }} style={styles.img} />
+          <WrapperDescription>
+            <Name>{movie.Title}</Name>
+            <Year>{movie.Year}</Year>
+          </WrapperDescription>
         </View>
       )}
     />
@@ -89,14 +37,16 @@ const GridMoviesSeries: React.FC = () => (
 const styles = StyleSheet.create({
   img: {
     width: itemWidth,
-    height: 100,
+    resizeMode: 'stretch',
+    height: 180,
+    borderRadius: 4,
   },
   wrapper: {
     width: itemWidth,
-
     margin: 2,
-    backgroundColor: 'red',
+    backgroundColor: theme.font,
     paddingBottom: 4,
+    borderRadius: 4,
   },
 });
 
