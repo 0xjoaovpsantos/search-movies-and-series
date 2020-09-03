@@ -20,5 +20,15 @@ export const Title = styled.Text`
 `;
 
 export const WrapperImage = styled.View`
-  margin: 140px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+`;
+
+export const Text = styled.Text`
+  color: ${theme.font};
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
 `;

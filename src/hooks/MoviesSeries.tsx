@@ -13,12 +13,14 @@ export interface MoviesProps {
 interface ResponseProps {
   Search: MoviesProps[];
   totalResults: string;
+  Response: string;
 }
 
 interface MoviesSeriesProps {
   data: object;
   search(movie: string): Promise<void>;
   loadMoreMovies(): Promise<void>;
+  notFound: boolean;
 }
 
 const MoviesSeries = createContext<MoviesSeriesProps>({} as MoviesSeriesProps);
@@ -28,17 +30,25 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
   const [movie, setMovie] = useState('');
   const [totalResults, setTotalResults] = useState(0);
   const [page, setPage] = useState(0);
+  const [notFound, setNotFound] = useState(false);
 
   async function search(movieSearch: string) {
     try {
       const response = await api.get<ResponseProps>(
         `/?apikey=${API_KEY}&s=${movieSearch}`,
       );
-      setData(response.data.Search);
-      setTotalResults(parseInt(response.data.totalResults));
-      setPage(1);
-      setMovie(movieSearch);
+
+      if (response.data.Response === 'True') {
+        setData(response.data.Search);
+        setTotalResults(parseInt(response.data.totalResults));
+        setPage(1);
+        setMovie(movieSearch);
+        setNotFound(false);
+      } else {
+        setNotFound(true);
+      }
     } catch (error) {
+      console.log('erro');
       throw new Error(error.response.data);
     }
   }
@@ -52,8 +62,6 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
         );
         setPage((prevPage) => prevPage + 1);
         setData([...data, ...response.data.Search]);
-        console.log(data.length);
-        console.log(data);
       } catch (error) {
         throw new Error(error.response.data);
       }
@@ -61,7 +69,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <MoviesSeries.Provider value={{ data, search, loadMoreMovies }}>
+    <MoviesSeries.Provider value={{ data, search, loadMoreMovies, notFound }}>
       {children}
     </MoviesSeries.Provider>
   );

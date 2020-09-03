@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { Container, Title, Header, WrapperImage } from './styles';
+import { Container, Title, Header, WrapperImage, Text } from './styles';
 
 import Input from '../../components/Input';
 import GridMoviesSeries from '../../components/GridMoviesSeries';
@@ -8,7 +8,7 @@ import GridMoviesSeries from '../../components/GridMoviesSeries';
 import { useMoviesSeries } from '../../hooks/MoviesSeries';
 
 const Home: React.FC = () => {
-  const { data } = useMoviesSeries();
+  const { data, notFound } = useMoviesSeries();
 
   return (
     <Container>
@@ -17,9 +17,14 @@ const Home: React.FC = () => {
         <Input />
       </Header>
       {data.length === 0 ? (
-        <WrapperImage>
-          <Image source={require('../../assets/popcorn.png')} />
-        </WrapperImage>
+        <>
+          <WrapperImage>
+            <Image source={require('../../assets/popcorn.png')} />
+            {notFound && (
+              <Text>Não encontramos nenhum filme/série com esse nome!!! </Text>
+            )}
+          </WrapperImage>
+        </>
       ) : (
         <GridMoviesSeries data={data} />
       )}
