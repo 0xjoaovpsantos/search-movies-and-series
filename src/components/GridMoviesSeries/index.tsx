@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, FlatList, Image, View, StyleSheet } from 'react-native';
 import { Container, WrapperDescription, Name, Year } from './styles';
 
-import { MoviesProps } from '../../hooks/MoviesSeries';
+import { MoviesProps, useMoviesSeries } from '../../hooks/MoviesSeries';
 
 import theme from '../../utils/theme';
 
@@ -14,25 +14,29 @@ interface GridMoviesSeriesProps {
   data: MoviesProps[];
 }
 
-const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => (
-  <Container>
-    <FlatList
-      data={data}
-      numColumns={numberGrid}
-      key={numberGrid}
-      keyExtractor={(movie) => movie.imdbID}
-      renderItem={({ item: movie }) => (
-        <View style={styles.wrapper}>
-          <Image source={{ uri: movie.Poster }} style={styles.img} />
-          <WrapperDescription>
-            <Name>{movie.Title}</Name>
-            <Year>{movie.Year}</Year>
-          </WrapperDescription>
-        </View>
-      )}
-    />
-  </Container>
-);
+const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => {
+  const { loadMoreMovies } = useMoviesSeries();
+  return (
+    <Container>
+      <FlatList
+        data={data}
+        numColumns={numberGrid}
+        keyExtractor={(movie) => movie.imdbID}
+        onEndReached={loadMoreMovies}
+        onEndReachedThreshold={0.4}
+        renderItem={({ item: movie }) => (
+          <View style={styles.wrapper}>
+            <Image source={{ uri: movie.Poster }} style={styles.img} />
+            <WrapperDescription>
+              <Name>{movie.Title}</Name>
+              <Year>{movie.Year}</Year>
+            </WrapperDescription>
+          </View>
+        )}
+      />
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   img: {
