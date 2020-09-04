@@ -63,3 +63,5 @@ buck-out/
 /ios/Pods/
 
 config.json
+
+coverage

@@ -18,7 +18,7 @@ const Input: React.FC = () => {
   return (
     <Container>
       <TextInput
-        placeholder="Search movies and series"
+        placeholder="Search movies, games and series"
         placeholderTextColor={theme.placeholder}
         onChangeText={(value) => {
           inputValueRef.current.value = value;
@@ -26,6 +26,7 @@ const Input: React.FC = () => {
         onSubmitEditing={() => search(inputValueRef.current.value)}
       />
       <TouchableWithoutFeedback
+        testID="searchIcon"
         onPress={() => search(inputValueRef.current.value)}
       >
         <View>
