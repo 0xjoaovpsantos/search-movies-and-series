@@ -5,9 +5,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { useMoviesSeries } from '../../hooks/MoviesSeries';
 
+import Loader from '../../components/Loader';
+
 const Description: React.FC = ({ route }) => {
   const { id } = route.params;
-  const { searchMovieId, descriptionMovie } = useMoviesSeries();
+  const { searchMovieId, descriptionMovie, load } = useMoviesSeries();
 
   useEffect(() => {
     async function search() {
@@ -18,25 +20,29 @@ const Description: React.FC = ({ route }) => {
 
   return (
     <Container>
-      <ScrollView>
-        <WrapperPoster>
-          <Image
-            source={{
-              uri: descriptionMovie.Poster,
-            }}
-            style={styles.img}
-          />
+      {load ? (
+        <Loader />
+      ) : (
+        <ScrollView>
+          <WrapperPoster>
+            <Image
+              source={{
+                uri: descriptionMovie.Poster,
+              }}
+              style={styles.img}
+            />
 
-          <Title>{descriptionMovie.Title}</Title>
-          <Year>
-            {descriptionMovie.Year} - {descriptionMovie.Runtime}
-          </Year>
-        </WrapperPoster>
-        <Text>{descriptionMovie.Plot}</Text>
-        <Text>Director: {descriptionMovie.Direction}</Text>
-        <Text>Writer: {descriptionMovie.Writer}</Text>
-        <Text>Actors: {descriptionMovie.Actors}</Text>
-      </ScrollView>
+            <Title>{descriptionMovie.Title}</Title>
+            <Year>
+              {descriptionMovie.Year} - {descriptionMovie.Runtime}
+            </Year>
+          </WrapperPoster>
+          <Text>{descriptionMovie.Plot}</Text>
+          <Text>Director: {descriptionMovie.Direction}</Text>
+          <Text>Writer: {descriptionMovie.Writer}</Text>
+          <Text>Actors: {descriptionMovie.Actors}</Text>
+        </ScrollView>
+      )}
     </Container>
   );
 };

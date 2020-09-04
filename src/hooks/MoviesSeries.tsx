@@ -34,6 +34,7 @@ interface MoviesSeriesProps {
   notFound: boolean;
   descriptionMovie: DescriptionProps;
   searchMovieId(id: string): Promise<void>;
+  load: boolean;
 }
 
 const MoviesSeries = createContext<MoviesSeriesProps>({} as MoviesSeriesProps);
@@ -47,6 +48,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
   const [descriptionMovie, setDescriptionMovie] = useState(
     {} as DescriptionProps,
   );
+  const [load, setLoad] = useState(false);
 
   async function search(movieSearch: string) {
     try {
@@ -85,6 +87,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
   }
 
   async function searchMovieId(id: string) {
+    setLoad(true);
     try {
       const response = await api.get<DescriptionProps>(
         `/?apikey=${API_KEY}&i=${id}`,
@@ -95,6 +98,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
       console.log('error');
       throw new Error(error.response.data);
     }
+    setLoad(false);
   }
 
   return (
@@ -106,6 +110,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
         notFound,
         descriptionMovie,
         searchMovieId,
+        load,
       }}
     >
       {children}
