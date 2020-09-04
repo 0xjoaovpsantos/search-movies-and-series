@@ -5,7 +5,7 @@ import theme from '../../utils/theme';
 import { Container } from './styles';
 
 const Loader: React.FC = () => (
-  <Container>
+  <Container testID="loader">
     <ActivityIndicator color={theme.font} size="large" />
   </Container>
 );
