@@ -46,9 +46,12 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFilesAfterEnv": ["@testing-library/jest-native/extend-expect"],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
     "collectCoverageFrom": [
-      "src/components/**/*.tsx"
+      "src/components/**/*.tsx",
+      "src/pages/**/*.tsx"
     ],
     "moduleFileExtensions": [
       "ts",

@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   const { data, notFound } = useMoviesSeries();
 
   return (
-    <Container>
+    <Container testID="home">
       <Header>
         <Title>Escolhe um filme aí!</Title>
         <Input />
@@ -21,7 +21,9 @@ const Home: React.FC = () => {
           <WrapperImage>
             <Image source={require('../../assets/popcorn.png')} />
             {notFound && (
-              <Text>Não encontramos nenhum filme/série com esse nome!!! </Text>
+              <Text testID="textNotFound">
+                Não encontramos nenhum filme/série com esse nome!!!{' '}
+              </Text>
             )}
           </WrapperImage>
         </>
