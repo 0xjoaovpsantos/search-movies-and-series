@@ -64,6 +64,7 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
         setNotFound(false);
       } else {
         setNotFound(true);
+        setData([]);
       }
     } catch (error) {
       console.log('erro');
