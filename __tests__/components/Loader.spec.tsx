@@ -4,7 +4,7 @@ import { render } from '@testing-library/react-native';
 
 import Loader from '../../src/components/Loader';
 
-describe('Input component', () => {
+describe('Loader component', () => {
   it('should be able to render an loader', () => {
     const { getByTestId } = render(<Loader />);
 

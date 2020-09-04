@@ -27,7 +27,7 @@ const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => {
   const navigation = useNavigation();
   const { loadMoreMovies } = useMoviesSeries();
   return (
-    <Container>
+    <Container testID="grid">
       <FlatList
         data={data}
         numColumns={numberGrid}
@@ -36,6 +36,7 @@ const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => {
         onEndReachedThreshold={0.4}
         renderItem={({ item: movie }) => (
           <TouchableWithoutFeedback
+            testID="movie"
             onPress={() =>
               navigation.navigate('Description', {
                 id: movie.imdbID,
