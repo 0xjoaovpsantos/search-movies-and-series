@@ -16,6 +16,7 @@ export const Title = styled.Text`
   color: ${theme.font};
   font-size: 24px;
   font-weight: bold;
+  text-align: center;
 `;
 
 export const Year = styled.Text`

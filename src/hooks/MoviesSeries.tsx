@@ -89,8 +89,10 @@ const MoviesSeriesProvider: React.FC = ({ children }) => {
       const response = await api.get<DescriptionProps>(
         `/?apikey=${API_KEY}&i=${id}`,
       );
+      console.log('ok');
       setDescriptionMovie(response.data);
     } catch (error) {
+      console.log('error');
       throw new Error(error.response.data);
     }
   }

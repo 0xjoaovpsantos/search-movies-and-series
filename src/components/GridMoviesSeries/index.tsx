@@ -1,8 +1,17 @@
 import React from 'react';
-import { Dimensions, FlatList, Image, View, StyleSheet } from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { Container, WrapperDescription, Name, Year } from './styles';
 
 import { MoviesProps, useMoviesSeries } from '../../hooks/MoviesSeries';
+
+import { useNavigation } from '@react-navigation/native';
 
 import theme from '../../utils/theme';
 
@@ -15,6 +24,7 @@ interface GridMoviesSeriesProps {
 }
 
 const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => {
+  const navigation = useNavigation();
   const { loadMoreMovies } = useMoviesSeries();
   return (
     <Container>
@@ -25,13 +35,21 @@ const GridMoviesSeries: React.FC<GridMoviesSeriesProps> = ({ data }) => {
         onEndReached={loadMoreMovies}
         onEndReachedThreshold={0.4}
         renderItem={({ item: movie }) => (
-          <View style={styles.wrapper}>
-            <Image source={{ uri: movie.Poster }} style={styles.img} />
-            <WrapperDescription>
-              <Name>{movie.Title}</Name>
-              <Year>{movie.Year}</Year>
-            </WrapperDescription>
-          </View>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              navigation.navigate('Description', {
+                id: movie.imdbID,
+              })
+            }
+          >
+            <View style={styles.wrapper}>
+              <Image source={{ uri: movie.Poster }} style={styles.img} />
+              <WrapperDescription>
+                <Name>{movie.Title}</Name>
+                <Year>{movie.Year}</Year>
+              </WrapperDescription>
+            </View>
+          </TouchableWithoutFeedback>
         )}
       />
     </Container>

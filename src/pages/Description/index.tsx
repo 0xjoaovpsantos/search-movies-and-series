@@ -1,34 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { Container, WrapperPoster, Title, Year, Text } from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const Description: React.FC = () => (
-  <Container>
-    <ScrollView>
-      <WrapperPoster>
-        <Image
-          source={{
-            uri:
-              'https://images-na.ssl-images-amazon.com/images/I/71niXI3lxlL._AC_SY741_.jpg',
-          }}
-          style={styles.img}
-        />
+import { useMoviesSeries } from '../../hooks/MoviesSeries';
 
-        <Title>Avengers EndGame</Title>
-        <Year>2019 - 73 min</Year>
-      </WrapperPoster>
-      <Text>
-        "When the Chitauri invaders are sighted in the African kingdom of
-        Wakanda, the Avengers covertly enter the advanced nation to
-        investigate."
-      </Text>
-      <Text>Director</Text>
-      <Text>Writers</Text>
-      <Text>Actos</Text>
-    </ScrollView>
-  </Container>
-);
+const Description: React.FC = ({ route }) => {
+  const { id } = route.params;
+  const { searchMovieId, descriptionMovie } = useMoviesSeries();
+
+  useEffect(() => {
+    async function search() {
+      await searchMovieId(id);
+    }
+    search();
+  }, []);
+
+  return (
+    <Container>
+      <ScrollView>
+        <WrapperPoster>
+          <Image
+            source={{
+              uri: descriptionMovie.Poster,
+            }}
+            style={styles.img}
+          />
+
+          <Title>{descriptionMovie.Title}</Title>
+          <Year>
+            {descriptionMovie.Year} - {descriptionMovie.Runtime}
+          </Year>
+        </WrapperPoster>
+        <Text>{descriptionMovie.Plot}</Text>
+        <Text>Director: {descriptionMovie.Direction}</Text>
+        <Text>Writer: {descriptionMovie.Writer}</Text>
+        <Text>Actors: {descriptionMovie.Actors}</Text>
+      </ScrollView>
+    </Container>
+  );
+};
 
 const styles = StyleSheet.create({
   img: {

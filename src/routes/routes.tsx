@@ -10,8 +10,8 @@ const App = createStackNavigator();
 const AppRoutes: React.FC = () => (
   <NavigationContainer>
     <App.Navigator screenOptions={{ headerShown: false }}>
-      <App.Screen name="Home" component={Description} />
-      <App.Screen name="Description" component={Home} />
+      <App.Screen name="Home" component={Home} />
+      <App.Screen name="Description" component={Description} />
     </App.Navigator>
   </NavigationContainer>
 );
