@@ -1,6 +1,6 @@
-# Marvel App
+# Search Movies/Games/Series here!
 
-> Application that consumes the Marvel API
+> Application that consumes the OMDB API
 
 <a href="https://github.com/joaovictorpsantos">
 <img alt="Autor" src="https://img.shields.io/badge/autor-JoãoVictorPereiraSantos-0E0E41?style=flat-square">
