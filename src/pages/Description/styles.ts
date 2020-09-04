@@ -9,7 +9,7 @@ export const Container = styled.View`
 
 export const WrapperPoster = styled.View`
   align-items: center;
-  margin: 40px;
+  margin: 20px;
 `;
 
 export const Title = styled.Text`

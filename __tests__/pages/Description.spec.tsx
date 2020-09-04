@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react-native';
 
-import Home from '../../src/pages/Home';
+import Description from '../../src/pages/Description';
 
 let mockedData = [
   {
@@ -20,8 +20,9 @@ let mockedNotFound = false;
 jest.mock('../../src/hooks/MoviesSeries', () => {
   return {
     useMoviesSeries: () => ({
-      data: mockedData,
-      notFound: mockedNotFound,
+      searchMovieId: jest.fn(),
+      descriptonMovie: jest.fn(),
+      load: false,
     }),
   };
 });
@@ -36,18 +37,10 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
-describe('Home page', () => {
-  it('should be able to render an Home', () => {
-    const { getByTestId } = render(<Home />);
+describe('Description page', () => {
+  it('should be able to render an Description', () => {
+    const { getByTestId } = render(<Description />);
 
-    expect(getByTestId('home')).toBeTruthy();
-  });
-
-  it('should be able to render an Home with notFound === true', () => {
-    mockedData = [];
-    mockedNotFound = true;
-    const { getByTestId } = render(<Home />);
-
-    expect(getByTestId('textNotFound')).toBeTruthy();
+    expect(getByTestId('description')).toBeTruthy();
   });
 });

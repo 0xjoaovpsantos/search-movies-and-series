@@ -19,7 +19,7 @@ const Description: React.FC = ({ route }) => {
   }, []);
 
   return (
-    <Container>
+    <Container testID="description">
       {load ? (
         <Loader />
       ) : (
@@ -37,10 +37,16 @@ const Description: React.FC = ({ route }) => {
               {descriptionMovie.Year} - {descriptionMovie.Runtime}
             </Year>
           </WrapperPoster>
-          <Text>{descriptionMovie.Plot}</Text>
-          <Text>Director: {descriptionMovie.Direction}</Text>
-          <Text>Writer: {descriptionMovie.Writer}</Text>
-          <Text>Actors: {descriptionMovie.Actors}</Text>
+          {descriptionMovie.Plot && <Text>{descriptionMovie.Plot}</Text>}
+          {descriptionMovie.Direction && (
+            <Text>Director: {descriptionMovie.Direction}</Text>
+          )}
+          {descriptionMovie.Writer && (
+            <Text>Writer: {descriptionMovie.Writer}</Text>
+          )}
+          {descriptionMovie.Actors && (
+            <Text>Actors: {descriptionMovie.Actors}</Text>
+          )}
         </ScrollView>
       )}
     </Container>
